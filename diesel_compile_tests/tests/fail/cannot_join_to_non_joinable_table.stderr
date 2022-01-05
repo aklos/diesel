@@ -1,5 +1,5 @@
 error[E0277]: the trait bound `users::table: JoinTo<posts::table>` is not satisfied
-  --> $DIR/cannot_join_to_non_joinable_table.rs:30:26
+  --> tests/fail/cannot_join_to_non_joinable_table.rs:30:26
    |
 30 |     let _ = users::table.inner_join(posts::table);
    |                          ^^^^^^^^^^ the trait `JoinTo<posts::table>` is not implemented for `users::table`
@@ -12,7 +12,7 @@ error[E0277]: the trait bound `users::table: JoinTo<posts::table>` is not satisf
    = note: required because of the requirements on the impl of `JoinWithImplicitOnClause<posts::table, Inner>` for `users::table`
 
 error[E0277]: the trait bound `users::table: JoinTo<posts::table>` is not satisfied
-  --> $DIR/cannot_join_to_non_joinable_table.rs:31:26
+  --> tests/fail/cannot_join_to_non_joinable_table.rs:31:26
    |
 31 |     let _ = users::table.left_outer_join(posts::table);
    |                          ^^^^^^^^^^^^^^^ the trait `JoinTo<posts::table>` is not implemented for `users::table`
@@ -25,7 +25,7 @@ error[E0277]: the trait bound `users::table: JoinTo<posts::table>` is not satisf
    = note: required because of the requirements on the impl of `JoinWithImplicitOnClause<posts::table, LeftOuter>` for `users::table`
 
 error[E0277]: the trait bound `posts::table: JoinTo<users::table>` is not satisfied
-  --> $DIR/cannot_join_to_non_joinable_table.rs:36:37
+  --> tests/fail/cannot_join_to_non_joinable_table.rs:36:37
    |
 36 |     let _ = users::table.inner_join(join);
    |                                     ^^^^ the trait `JoinTo<users::table>` is not implemented for `posts::table`
@@ -37,4 +37,4 @@ error[E0277]: the trait bound `posts::table: JoinTo<users::table>` is not satisf
              <posts::table as JoinTo<comments::table>>
              <posts::table as JoinTo<diesel::query_source::joins::Join<Left, Right, Kind>>>
    = note: required because of the requirements on the impl of `JoinTo<users::table>` for `diesel::query_source::joins::Join<posts::table, comments::table, Inner>`
-   = note: required because of the requirements on the impl of `JoinWithImplicitOnClause<SelectStatement<FromClause<JoinOn<diesel::query_source::joins::Join<posts::table, comments::table, Inner>, Grouped<diesel::expression::operators::Eq<diesel::expression::nullable::Nullable<comments::columns::post_id>, diesel::expression::nullable::Nullable<posts::columns::id>>>>>>, Inner>` for `users::table`
+   = note: required because of the requirements on the impl of `JoinWithImplicitOnClause<SelectStatement<FromClause<JoinOn<diesel::query_source::joins::Join<posts::table, comments::table, Inner>, diesel::expression::grouped::Grouped<diesel::expression::operators::Eq<NullableExpression<comments::columns::post_id>, NullableExpression<posts::columns::id>>>>>>, Inner>` for `users::table`
